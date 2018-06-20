@@ -127,6 +127,23 @@ services:
       - db
     ports:
       - "3000:3000"
+  keycloak-proxy:
+    depends_on:
+      - keycloak
+    environment:
+      - KEYCLOAK_SERVER=keycloak
+      - KEYCLOAK_CLIENT_ID=account
+      - KEYCLOAK_REALM=master
+    working_dir: /home/proxyuser
+    volumes:
+      - ./keycloak-proxy:/home/proxyuser
+    build:
+      context: .
+      dockerfile: ./keycloak-proxy/Dockerfile
+    links:
+      - keycloak
+    ports:
+      - "3003:3003"
   webui:
     working_dir: /code
     volumes:
