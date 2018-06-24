@@ -127,23 +127,19 @@ services:
       - db
     ports:
       - "3000:3000"
-  keycloak-proxy:
-    depends_on:
-      - keycloak
+  postgrest-proxy:
     environment:
       - KEYCLOAK_SERVER=keycloak
-      - KEYCLOAK_CLIENT_ID=account
-      - KEYCLOAK_REALM=master
-    working_dir: /home/proxyuser
+      - KEYCLOAK_REALM=havendev
+      - KEYCLOAK_CLIENT_ID=havendev
     volumes:
-      - ./keycloak-proxy:/home/proxyuser
-    build:
-      context: .
-      dockerfile: ./keycloak-proxy/Dockerfile
+      - ./postgrest/keycloak-proxy.yaml:/opt/keycloak-proxy.yaml
+      - ./postgrest/keycloak-proxy-start.sh:/opt/keycloak-proxy-start.sh
+    image: quay.io/gambol99/keycloak-proxy:v2.2.1
     links:
       - keycloak
-    ports:
-      - "3003:3003"
+      - api
+    entrypoint: /opt/keycloak-proxy-start.sh
   webui:
     working_dir: /code
     volumes:
@@ -156,6 +152,7 @@ services:
       - api
       - havenapi
       - keycloak
+      - postgrest-proxy
     ports:
       - "2015:2016"
     command: [/code/installrun.sh]

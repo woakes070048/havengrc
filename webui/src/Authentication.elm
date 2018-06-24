@@ -6,7 +6,6 @@ module Authentication
         , update
         , handleAuthResult
         , tryGetUserProfile
-        , tryGetAuthHeader
         , getReturnHeaders
         , isLoggedIn
         )
@@ -89,20 +88,6 @@ isLoggedIn model =
 
         Keycloak.LoggedOut ->
             False
-
-
-tryGetAuthHeader : Model -> List Http.Header
-tryGetAuthHeader authModel =
-    case authModel.state of
-        Keycloak.LoggedIn user ->
-            [ (Http.header "Authorization" ("Bearer " ++ user.token)) ]
-
-        Keycloak.LoggedOut ->
-            let
-                _ =
-                    Debug.log "didn't get a user token" ""
-            in
-                []
 
 
 getReturnHeaders : List Http.Header

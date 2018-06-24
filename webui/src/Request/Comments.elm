@@ -15,7 +15,7 @@ get : Authentication.Model -> Http.Request (List Data.Comment.Comment)
 get authModel =
     Http.request
         { method = "GET"
-        , headers = Authentication.tryGetAuthHeader authModel
+        , headers = []
         , url = commentsUrl
         , body = Http.emptyBody
         , expect = Http.expectJson (Decode.list Data.Comment.decode)
@@ -32,7 +32,7 @@ post authModel newComment =
                 |> Http.jsonBody
 
         headers =
-            (Authentication.tryGetAuthHeader authModel) ++ Authentication.getReturnHeaders
+            Authentication.getReturnHeaders
 
         _ =
             Debug.log "postComment called with " newComment.message
