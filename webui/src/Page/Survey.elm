@@ -253,7 +253,7 @@ update msg model authModel =
 
                 Likert survey ->
                     model ! [ Http.send LikertSurveySaved (Request.Survey.postLikertResponses authModel survey) ]
-        
+
         NewUserRegistered (Err error) ->
             let
                 _ =
@@ -824,7 +824,7 @@ viewHero model =
             (List.map
                 (\availableSurvey ->
                     if availableSurvey.name == "SCDS_1" then
-                        div [ class "col-6 mb-4" ]
+                        div [ class "col-md-6 mb-4 col-sm-12" ]
                             [ Views.SurveyCard.view availableSurvey "Ipsative" (StartIpsativeSurvey availableSurvey)
                             ]
                     else
@@ -1085,7 +1085,6 @@ viewSurveyPointsGroup : IpsativeAnswer -> PointsAssigned -> Html Msg
 viewSurveyPointsGroup answer group =
     li [ class "list-group-item" ]
         [ div [ class "d-flex justify-content-between" ]
-            [ div [ class "align-self-center" ] []
             , div [ class "" ]
                 [ button
                     [ type_ "button"
@@ -1110,8 +1109,8 @@ viewSurveyPointsGroup answer group =
 viewSurveyFooter : Html Msg
 viewSurveyFooter =
     div [ class "row mb-4 pb-4 px-3 d-flex justify-content-between" ]
-        [ button [ class "btn btn-primary btn-lg mx-1", onClick GoToHome ] [ text "Back" ] 
-        , button [ class "btn btn-default btn-lg mx-1", onClick PreviousQuestion ] [ text "<" ] 
-        , button [ class "btn btn-default btn-lg mx-1", onClick NextQuestion ] [ text ">" ] 
-        , button [ class "btn btn-primary btn-lg mx-1", onClick FinishSurvey ] [ text "Finish" ] 
+        [ button [ class "btn btn-primary btn-lg mx-1", onClick GoToHome ] [ text "Back" ]
+        , button [ class "btn btn-default btn-lg mx-1", onClick PreviousQuestion ] [ text "<" ]
+        , button [ class "btn btn-default btn-lg mx-1", onClick NextQuestion ] [ text ">" ]
+        , button [ class "btn btn-primary btn-lg mx-1", onClick FinishSurvey ] [ text "Finish" ]
         ]
