@@ -7,10 +7,10 @@ const enableKeycloakOauth = require('./keycloak-auth-hook');
 const basicAuth = require('./basic-auth-hook');
 
 let options = {};
-//options.adminAuthentication = 'unsecure';
+
+// TODO remove this adminAuthentication disable as soon as keycloak-proxy is in place
 options.adminAuthentication = 'none';
-//options.preRouterHook = basicAuth;
-//options.preRouterHook = enableKeycloakOauth
+
 
 function serveFrontend(app) {
     app.use('/', express.static('/frontend'));
