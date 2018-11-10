@@ -1,4 +1,4 @@
-[![CircleCI](https://circleci.com/gh/kindlyops/mappamundi.svg?style=svg)](https://circleci.com/gh/kindlyops/mappamundi) [![experimental](http://badges.github.io/stability-badges/dist/experimental.svg)](http://github.com/badges/stability-badges) [![Say Thanks!](https://img.shields.io/badge/Say%20Thanks-!-1EAEDB.svg)](https://saythanks.io/to/statik) [![Maintainability](https://api.codeclimate.com/v1/badges/d2af9dcd5ad434172a27/maintainability)](https://codeclimate.com/github/kindlyops/mappamundi/maintainability)
+[![CircleCI](https://circleci.com/gh/kindlyops/havengrc.svg?style=svg)](https://circleci.com/gh/kindlyops/havengrc) [![experimental](http://badges.github.io/stability-badges/dist/experimental.svg)](http://github.com/badges/stability-badges) [![Say Thanks!](https://img.shields.io/badge/Say%20Thanks-!-1EAEDB.svg)](https://saythanks.io/to/statik) [![Maintainability](https://api.codeclimate.com/v1/badges/d2af9dcd5ad434172a27/maintainability)](https://codeclimate.com/github/kindlyops/havengrc/maintainability)
 
 # Haven GRC is a modern risk & compliance dashboard
 
@@ -97,7 +97,7 @@ If you don't have docker running, use [these instructions](https://docs.docker.c
 We have a tmux session defined with https://github.com/tmux-python/tmuxp/ this may make it easier to monitor logs as you work. This is also handy if you want to do development on a remote VM.
 
     pip install --user tmuxp
-    tmuxp load ~/go/src/github.com/kindlyops/mappamundi
+    tmuxp load ~/go/src/github.com/kindlyops/havengrc
 
 ### Windows users
 
