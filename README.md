@@ -33,38 +33,44 @@ Applications and frameworks that are complementary to Haven. We would prefer to 
 ## Table of Contents
 
 <!--ts-->
--   [Table of Contents](#table-of-contents)
--   [thank you to vendors that support the project](#thank-you-to-vendors-that-support-the-project)
--   [setting up the dev environment](#setting-up-the-dev-environment)
-    -   [Tmux](#tmux)
-    -   [Windows users](#windows-users)
--   [running the service](#running-the-service)
-    -   [to access the main webUI](#to-access-the-main-webui)
-    -   [to access the swagger-ui for the postgrest API](#to-access-the-swagger-ui-for-the-postgrest-api)
-    -   [to access keycloak](#to-access-keycloak)
-    -   [to access the GitBook documentation site](#to-access-the-gitbook-documentation-site)
-    -   [to see emails sent from Haven / keycloak](#to-see-emails-sent-from-haven--keycloak)
-    -   [Background jobs](#background-jobs)
-    -   [Monitoring activity with Grafana](#monitoring-activity-with-grafana)
-    -   [Security scanning with Zed Attack Proxy](#security-scanning-with-zed-attack-proxy)
-    -   [Bazel](#bazel)
--   [Developer tips](#developer-tips)
-    -   [look around inside the database](#look-around-inside-the-database)
-    -   [Run Go Buffalo tasks](#run-go-buffalo-tasks)
-    -   [to export keycloak realm data (to refresh the dev users)](#to-export-keycloak-realm-data-to-refresh-the-dev-users)
-    -   [To clear local storage in Chrome for your local site](#to-clear-local-storage-in-chrome-for-your-local-site)
-    -   [Testing on a real mobile device](#testing-on-a-real-mobile-device)
-    -   [add a database migration](#add-a-database-migration)
--   [Authentication with JWT and Keycloak](#authentication-with-jwt-and-keycloak)
-    -   [roles and permissions](#roles-and-permissions)
-    -   [multi-tenancy](#multi-tenancy)
-    -   [Low level JWT interactions](#low-level-jwt-interactions)
--   [Learning Elm](#learning-elm)
-    -   [Design framework and tooling](#design-framework-and-tooling)
--   [Deploying with kubernetes / OpenShift](#deploying-with-kubernetes--openshift)
-    -   [Using OpenShift](#using-openshift)
-    -   [Database resource](#database-resource)
-    -   [TLS](#tls)
+- [Haven GRC is a modern risk & compliance dashboard](#haven-grc-is-a-modern-risk--compliance-dashboard)
+        - [But what does Haven GRC do?](#but-what-does-haven-grc-do)
+        - [Future roadmap](#future-roadmap)
+        - [Complementary tools](#complementary-tools)
+    - [!screenshot of app](#screenshot-of-app)
+    - [Table of Contents](#table-of-contents)
+    - [thank you to vendors that support the project](#thank-you-to-vendors-that-support-the-project)
+    - [setting up the dev environment](#setting-up-the-dev-environment)
+        - [Tmux](#tmux)
+        - [Windows users](#windows-users)
+    - [running the service](#running-the-service)
+        - [to access the main webUI](#to-access-the-main-webui)
+        - [to access the swagger-ui for the postgrest API](#to-access-the-swagger-ui-for-the-postgrest-api)
+        - [to access keycloak](#to-access-keycloak)
+        - [to access the GitBook documentation site](#to-access-the-gitbook-documentation-site)
+        - [to see emails sent from Haven / keycloak](#to-see-emails-sent-from-haven--keycloak)
+        - [Background jobs](#background-jobs)
+        - [Monitoring activity with Grafana](#monitoring-activity-with-grafana)
+        - [Security scanning with Zed Attack Proxy](#security-scanning-with-zed-attack-proxy)
+        - [Bazel](#bazel)
+    - [Developer tips](#developer-tips)
+        - [look around inside the database](#look-around-inside-the-database)
+        - [Run Go Buffalo tasks](#run-go-buffalo-tasks)
+        - [to export keycloak realm data (to refresh the dev users)](#to-export-keycloak-realm-data-to-refresh-the-dev-users)
+        - [To clear local storage in Chrome for your local site](#to-clear-local-storage-in-chrome-for-your-local-site)
+        - [Testing on a real mobile device](#testing-on-a-real-mobile-device)
+        - [add a database migration](#add-a-database-migration)
+    - [Authentication with JWT and Keycloak](#authentication-with-jwt-and-keycloak)
+        - [roles and permissions](#roles-and-permissions)
+        - [multi-tenancy](#multi-tenancy)
+        - [Low level JWT interactions](#low-level-jwt-interactions)
+    - [Learning Elm](#learning-elm)
+        - [Design framework and tooling](#design-framework-and-tooling)
+    - [Working with RMarkdown templates](#working-with-rmarkdown-templates)
+    - [Deploying with kubernetes / OpenShift](#deploying-with-kubernetes--openshift)
+        - [Using OpenShift](#using-openshift)
+        - [Database resource](#database-resource)
+        - [TLS](#tls)
 
 <!--te-->
 ## thank you to vendors that support the project
@@ -99,6 +105,13 @@ Before you continue, you need to configure git to auto-correct line ending forma
 
      git config --global core.autocrlf false
 
+Docker versions prior to 18.0.9.0 have a bug on windows. To work around the bug
+set this in your PowerShell before invoking docker
+
+    $Env:COMPOSE_CONVERT_WINDOWS_PATHS=1
+
+This workaround is described in the [GitHub issue](https://github.com/docker/for-win/issues/1829#issuecomment-376928286).
+
 ## running the service
 
 You will normally run all the services using:
@@ -110,9 +123,9 @@ From this point on, you just just be able to use docker-compose up/down normally
 
 ### to access the main webUI
 
-Open [localhost:2015](http://localhost:2015/), click the login button. You can login with user1\@havengrc.com/password or user2\@havengrc.com/password. User2 will prompt you to configure 2Factor authentication.
+Open [dev.havengrc.com](http://dev.havengrc.com/), click the login button. You can login with user1\@havengrc.com/password or user2\@havengrc.com/password. User2 will prompt you to configure 2Factor authentication.
 
-If you cannot connect to [localhost](http://localhost:2015), try getting the docker machine ip using the command `docker-machine ip default` and use that instead.
+If you cannot connect to [dev.havengrc.com](http://dev.havengrc.com), try getting the docker machine ip using the command `docker-machine ip default` and use that instead.
 
 ### to access the swagger-ui for the postgrest API
 
@@ -132,11 +145,11 @@ Open [localhost:2015/auth/](http://localhost:2015/auth/), you can sign in with a
 
 ### to access the GitBook documentation site
 
-Open [localhost:4000](http://localhost:4000/)
+Open [docs.dev.havengrc.com](http://docs.dev.havengrc.com/)
 
 ### to see emails sent from Haven / keycloak
 
-Open [localhost:8025](http://localhost:8025), you can use mailhog to see messages stored in memory
+Open [mailhog.dev.havengrc.com](http://mailhog.dev.havengrc.com), you can use mailhog to see messages stored in memory
 
 ### Background jobs
 
