@@ -1,0 +1,14 @@
+# is the url for retrieve the OpenID configuration - normally the <server>/auth/realm/<realm_name>
+discovery-url: http://dev.havengrc.com/auth/realms/havendev
+# the client id for the 'client' application
+client-id: havendev
+client-secret: d6c6ec35-c755-41d1-837d-e4e9eed4cb1a
+
+# whether to enable refresh tokens
+#enable-refresh-tokens: true
+# the redirection url, essentially the site url, note: /oauth/callback is added at the end
+redirection-url: http://dev.havengrc.com/
+
+listen: 0.0.0.0:80
+upstream-url: webui:2015
+secure-cookie: false
