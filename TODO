@@ -1,6 +1,18 @@
-Update the Elm UI
+run a dc build to build havenapi with network
+clone the keycloak-gatekeeper repo to get access to the examples for configuring urls
 
-- rework Regulation module to Comments, fix the decoder
-- add the JWT to the request in an Auth header
-- figure out how to control the shared secret used to sign the JWT so that
-  postgrest can authenticate a JWT signed by Keycloak
+Figure out whether Elm can read the keycloak-gatekeeper cookie
+to get the user info and determine login state. 
+If so, we can get rid of keycloak.js
+
+Set the front page and static assets to not require auth.
+
+Make sure hitting the /unleash page redirects to login
+Make sure the normal login button works.
+
+Figure out changing the havengrc Keycloak client type from
+public to confidential and management of the client secret.
+
+Check if security headers are coming through from Caddy
+
+Figure out TLS handling, do it in caddy or in keycloak-gatekeeper?
